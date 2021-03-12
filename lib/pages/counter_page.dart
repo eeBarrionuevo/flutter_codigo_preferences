@@ -38,9 +38,9 @@ class _CounterPageState extends State<CounterPage> {
 
   _incrementCounter() async{
     print("Ingresó al incremento del counter");
-    SharedPreferences susana = await SharedPreferences.getInstance();
-    _count = (susana.getInt("counterValue") ?? 0) + 1;
-    susana.setInt("counterValue", _count);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _count = (prefs.getInt("counterValue") ?? 0) + 1;
+    prefs.setInt("counterValue", _count);
     setState(() {
     });
   }
