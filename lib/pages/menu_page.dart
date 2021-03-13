@@ -25,10 +25,10 @@ class _MenuPageState extends State<MenuPage> {
 
   getValues() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    _color = prefs.getBool("colorSecundario");
-    _name = prefs.getString("namex");
-    _address = prefs.getString("address");
-    _gender = prefs.getInt("genero");
+    _color = prefs.getBool("colorSecundario") ?? false;
+    _name = prefs.getString("namex") ?? "";
+    _address = prefs.getString("address") ?? "";
+    _gender = prefs.getInt("genero") ?? 1;
     setState(() {
     });
   }
