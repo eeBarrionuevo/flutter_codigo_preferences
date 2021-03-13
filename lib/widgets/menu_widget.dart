@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo_preferences/pages/menu_page.dart';
 import 'package:flutter_codigo_preferences/pages/settings_page.dart';
 
 
@@ -31,7 +32,7 @@ class MenuWidget extends StatelessWidget {
             leading: Icon(Icons.pages, color: Colors.teal,),
             title: Text("Inicio"),
             onTap: (){
-
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MenuPage()));
             },
           ),
           ListTile(
