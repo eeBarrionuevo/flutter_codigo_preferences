@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo_preferences/widgets/menu_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -12,13 +13,27 @@ class _SettingsPageState extends State<SettingsPage> {
   int _genero = 1;
 
 
+
+  saveValuesSharedPreferences() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("colorSecundario", _colorSecundario ?? false);
+    print("Color secundario guardado...");
+  }
+
+  getValuesSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    _colorSecundario = (prefs.getBool("colorSecundario")) ?? false;
+    print("Color secundario cargado...");
+  }
+
+
   @override
   Widget build(BuildContext context) {
     print("Crear widget");
     return Scaffold(
       appBar: AppBar(
         title: Text("Configuración"),
-        backgroundColor: Colors.teal,
+        backgroundColor: _colorSecundario == true ? Colors.pinkAccent : Colors.teal,
       ),
       drawer: MenuWidget(),
       body: Center(
@@ -38,6 +53,7 @@ class _SettingsPageState extends State<SettingsPage> {
               subtitle: Text("Si quieres puedes activarlo"),
               onChanged: (valor) {
                 _colorSecundario = valor;
+                saveValuesSharedPreferences();
                 setState(() {});
               },
             ),
@@ -69,6 +85,9 @@ class _SettingsPageState extends State<SettingsPage> {
                   labelText: "Nombres",
                   helperText: "Ingresa tus nombres"
                 ),
+                onChanged: (value){
+                  print(value);
+                },
               ),
             ),
             SizedBox(
@@ -81,6 +100,9 @@ class _SettingsPageState extends State<SettingsPage> {
                     labelText: "Dirección",
                     helperText: "Ingresa tu dirección"
                 ),
+                onChanged: (value){
+                  print(value);
+                },
               ),
             ),
           ],
@@ -88,4 +110,6 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
+
+
 }
