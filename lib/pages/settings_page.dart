@@ -8,32 +8,46 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-
   bool _colorSecundario = false;
   int _genero = 1;
+  String _name = "";
+  String _address = "";
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
 
   @override
-  void initState(){
+  void initState() {
     print("Este es el inicio...");
     getValuesSharedPreferences();
   }
 
-
-  saveValuesSharedPreferences() async{
+  saveValuesSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("colorSecundario", _colorSecundario ?? false);
+    prefs.setInt("genero", _genero);
+
+    prefs.setString("namex", _name);
+    prefs.setString("address", _address);
+
     print("Color secundario guardado...");
   }
 
   getValuesSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _colorSecundario = (prefs.getBool("colorSecundario")) ?? false;
-    setState(() {
+    _genero = (prefs.getInt("genero")) ?? 1;
+    _name = prefs.getString("namex");
+    _address = prefs.getString("address");
 
-    });
+    nameController = TextEditingController(text: _name);
+    addressController.text = _address;
+
+    print("Nombre guardado... $_name");
+
+    setState(() {});
     print("Color secundario cargado...");
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +55,8 @@ class _SettingsPageState extends State<SettingsPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Configuración"),
-        backgroundColor: _colorSecundario == true ? Colors.pinkAccent : Colors.teal,
+        backgroundColor:
+            _colorSecundario == true ? Colors.pinkAccent : Colors.teal,
       ),
       drawer: MenuWidget(),
       body: Center(
@@ -69,9 +84,11 @@ class _SettingsPageState extends State<SettingsPage> {
               value: 1,
               title: Text("Masculino"),
               groupValue: _genero,
-              onChanged: (int valor){
+              onChanged: (int valor) {
                 setState(() {
                   _genero = valor;
+                  saveValuesSharedPreferences();
+                  print(_genero);
                 });
               },
             ),
@@ -79,9 +96,11 @@ class _SettingsPageState extends State<SettingsPage> {
               value: 2,
               title: Text("Femenino"),
               groupValue: _genero,
-              onChanged: (int valor){
+              onChanged: (int valor) {
                 setState(() {
                   _genero = valor;
+                  saveValuesSharedPreferences();
+                  print(_genero);
                 });
               },
             ),
@@ -89,12 +108,15 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                controller: nameController,
                 decoration: InputDecoration(
                   labelText: "Nombres",
-                  helperText: "Ingresa tus nombres"
+                  helperText: "Ingresa tus nombres",
                 ),
-                onChanged: (value){
+                onChanged: (String value) {
                   print(value);
+                  _name = value;
+                  saveValuesSharedPreferences();
                 },
               ),
             ),
@@ -104,12 +126,13 @@ class _SettingsPageState extends State<SettingsPage> {
             Container(
               padding: EdgeInsets.symmetric(horizontal: 25.0),
               child: TextField(
+                controller: addressController,
                 decoration: InputDecoration(
-                    labelText: "Dirección",
-                    helperText: "Ingresa tu dirección"
-                ),
-                onChanged: (value){
+                    labelText: "Dirección", helperText: "Ingresa tu dirección",),
+                onChanged: (value) {
                   print(value);
+                  _address = value;
+                  saveValuesSharedPreferences();
                 },
               ),
             ),
@@ -118,6 +141,4 @@ class _SettingsPageState extends State<SettingsPage> {
       ),
     );
   }
-
-
 }
