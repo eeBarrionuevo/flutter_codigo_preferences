@@ -12,6 +12,11 @@ class _SettingsPageState extends State<SettingsPage> {
   bool _colorSecundario = false;
   int _genero = 1;
 
+  @override
+  void initState(){
+    print("Este es el inicio...");
+    getValuesSharedPreferences();
+  }
 
 
   saveValuesSharedPreferences() async{
@@ -23,6 +28,9 @@ class _SettingsPageState extends State<SettingsPage> {
   getValuesSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     _colorSecundario = (prefs.getBool("colorSecundario")) ?? false;
+    setState(() {
+
+    });
     print("Color secundario cargado...");
   }
 
