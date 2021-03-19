@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo_preferences/utils/shared_preferences_global.dart';
 import 'package:flutter_codigo_preferences/widgets/menu_widget.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +17,10 @@ class _SettingsPageState extends State<SettingsPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
+
+  final mandarina = new UserPreference();
+
+
   @override
   void initState() {
     print("Este es el inicio...");
@@ -23,12 +28,19 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 
   saveValuesSharedPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("colorSecundario", _colorSecundario ?? false);
-    prefs.setInt("genero", _genero);
+    // SharedPreferences prefs = await SharedPreferences.getInstance();
+    //prefs.setBool("colorSecundario", _colorSecundario ?? false);
+    //prefs.setInt("genero", _genero);
 
-    prefs.setString("namex", _name);
-    prefs.setString("address", _address);
+    // prefs.setString("namex", _name);
+    // prefs.setString("address", _address);
+
+    mandarina.color =  _colorSecundario ?? false;
+    mandarina.genero = _genero ?? 1;
+    mandarina.name = _name ?? "No tengo nombre";
+    mandarina.address = _address ?? "No tengo dirección";
+
+
 
     print("Color secundario guardado...");
   }

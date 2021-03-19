@@ -13,7 +13,7 @@ class UserPreference{
 
   SharedPreferences _prefs;
 
-  _initPreferences() async {
+  initPreferences() async {
     _prefs = await SharedPreferences.getInstance();
   }
 
@@ -49,11 +49,6 @@ class UserPreference{
   set color (bool value){
     _prefs.setBool("colorSecundario", value);
   }
-
-
-
-
-
 
 
 }
