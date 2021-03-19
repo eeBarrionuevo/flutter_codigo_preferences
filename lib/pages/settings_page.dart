@@ -35,22 +35,20 @@ class _SettingsPageState extends State<SettingsPage> {
     // prefs.setString("namex", _name);
     // prefs.setString("address", _address);
 
-    mandarina.color =  _colorSecundario ?? false;
+    mandarina.color = _colorSecundario ?? false;
     mandarina.genero = _genero ?? 1;
     mandarina.name = _name ?? "No tengo nombre";
     mandarina.address = _address ?? "No tengo dirección";
-
-
 
     print("Color secundario guardado...");
   }
 
   getValuesSharedPreferences() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _colorSecundario = (prefs.getBool("colorSecundario")) ?? false;
-    _genero = (prefs.getInt("genero")) ?? 1;
-    _name = prefs.getString("namex");
-    _address = prefs.getString("address");
+
+    _colorSecundario = (mandarina.color) ?? false;
+    _genero = (mandarina.genero) ?? 1;
+    _name = mandarina.name;
+    _address = mandarina.address;
 
     nameController = TextEditingController(text: _name);
     addressController.text = _address;

@@ -17,8 +17,15 @@ class UserPreference{
     _prefs = await SharedPreferences.getInstance();
   }
 
+  //
+  // int _llantas = 4;
+  //
+  // int get llanta => _prefs.getInt("genero") ?? 1;
+  //
+  // set llanta(int value) =>  _prefs.setInt("genero", value);
 
-  get genero{
+
+  int get genero{
     return _prefs.getInt("genero") ?? 1;
   }
 
